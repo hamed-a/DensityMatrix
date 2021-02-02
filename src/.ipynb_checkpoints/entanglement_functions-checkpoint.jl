@@ -10,14 +10,14 @@ function entropy(rho)
 end
 
 
-function log_negativity(density_matrix::DensityMatrix,qdit_indices::Vector{Int8} )
+function log_negativity(density_matrix::DensityMatrix,qdit_indices )
     transposed_density_matrix = partial_transpose( density_matrix,qdit_indices )
     evals = real( eigvals(transposed_density_matrix.rho) )
     log(2,sum(abs.( evals )  )  )
 end
 
 
-function negativity(density_matrix::DensityMatrix, qdit_indices::Vector{Int8} )
+function negativity(density_matrix::DensityMatrix, qdit_indices )
     transposed_density_matrix = partial_transpose( density_matrix,qdit_indices )
     evals = real( eigvals(transposed_density_matrix.rho) )
     (sum(abs.( evals )  )-1)/2

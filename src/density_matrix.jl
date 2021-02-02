@@ -2,18 +2,19 @@ include("random_positive_matrix.jl")
 include("unitary_transfs.jl")
 
 #DimType=Int32
+#FloatOrComplex = Union{AbstractFloat,Complex{AbstractFloat}}
 @enum DMConstructMethod from_user from_eigvals random_rank random_pure from_user_pure
 
 struct DensityMatrix
-    rho :: Matrix{Complex{Float64}}
-    num_qdits :: Int64
-    qdit_dimensions :: Vector{DimType}
+    rho :: AbstractMatrix{Complex{Float64}}
+    num_qdits :: UInt64
+    qdit_dimensions :: AbstractVector{DimType}
     total_dimension :: DimType
-    prod_dimensions :: Vector{DimType}
+    prod_dimensions :: AbstractVector{DimType}
 end
 
-function construct_DensityMatrix(; qdit_dimensions::Vector{DimType}, 
-            method::DMConstructMethod=from_user, 
+function construct_DensityMatrix(; qdit_dimensions, 
+            method=from_user, 
             rho=nothing,
             rank=nothing,
             eigvals=nothing,
@@ -29,7 +30,7 @@ function construct_DensityMatrix(; qdit_dimensions::Vector{DimType},
         rho = Hermitian( rho/tr(rho) )
     elseif method==from_eigvals
         if U==nothing
-            rho = random_unitary_tranf( Diagonal(eigvals) )
+            rho = random_unitary_transf( Diagonal(eigvals) )
         elseif U=="identity"
             rho = Diagonal(eigvals)
         else

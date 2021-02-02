@@ -1,7 +1,7 @@
 using RandomMatrices
 using LinearAlgebra
 
-DimType=Int64
+DimType=Int
 
 function random_pure_rho(dimension::DimType)
     psi = randn(dimension) + randn(dimension)*1im
