@@ -5,6 +5,8 @@ include("unitary_transfs.jl")
 #FloatOrComplex = Union{AbstractFloat,Complex{AbstractFloat}}
 @enum DMConstructMethod from_user from_eigvals random_rank random_pure from_user_pure
 
+prod_dims(dims) = [ 1 ; [ prod(dims[qdit_1] for qdit_1=1:qdit_2) for qdit_2=1:length(dims) ] ]
+
 struct DensityMatrix
     rho :: AbstractMatrix{Complex{Float64}}
     num_qdits :: UInt64
@@ -24,7 +26,8 @@ function construct_DensityMatrix(; qdit_dimensions,
     #qdit_dimensions = qdit_dimensions
     num_qdits = length(qdit_dimensions)
     total_dimension = prod(qdit_dimensions[qdit] for qdit=1:num_qdits )
-    prod_dimensions = [ 1 ; [ prod(qdit_dimensions[qdit_1] for qdit_1=1:qdit_2) for qdit_2=1:num_qdits ] ]
+    #prod_dimensions = [ 1 ; [ prod(qdit_dimensions[qdit_1] for qdit_1=1:qdit_2) for qdit_2=1:num_qdits ] ]
+    prod_dimensions = prod_dims(qdit_dimensions)
 
     if method==from_user
         rho = Hermitian( rho/tr(rho) )

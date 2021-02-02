@@ -1,6 +1,6 @@
 using DensityMatrixModule
 
-function partial_transpose(density_matrix::DensityMatrix, qdit_indices::Vector{Int8} )
+function partial_transpose(density_matrix::DensityMatrix, qdit_indices )
 
     new_rho = zeros(Complex{Float64}, density_matrix.total_dimension , density_matrix.total_dimension )
 
@@ -27,5 +27,5 @@ function partial_transpose(density_matrix::DensityMatrix, qdit_indices::Vector{I
         new_rho[I+1,J+1] = density_matrix.rho[old_I+1,old_J+1]
     end
 
-    DensityMatrix(rho=new_rho,dimensions=density_matrix.qdit_dimensions)
+    construct_DensityMatrix(rho=new_rho,qdit_dimensions=density_matrix.qdit_dimensions,method=from_user)
 end
