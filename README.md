@@ -1,2 +1,5 @@
-# DensityMatrix
-Some modules to create mostly random density matrices for quantum states of qdits, and to find the entanglement entropy and entanglement negativity.
+# DensityMatrixModule
+Create random density matrices for quantum states of several qdits.
+# DensityMatrixOps
+Calculate the partial trace, partial transpose, entanglement entropy
+and entanglement negativity of a density matrix.
